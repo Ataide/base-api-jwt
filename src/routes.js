@@ -1,16 +1,14 @@
-import Router from "express";
-import User from "./app/models/User";
+import Router from 'express';
+import SessionController from './app/controllers/SessionController';
 
 const routes = Router();
 
-routes.get("/", async (request, response) => {
-  const user = await User.create({
-    name: "Davi Basstos",
-    email: "davi.basstos@gmail.com",
-    password: "123456",
-  });
+routes.post('/auth', SessionController.authenticate);
 
-  return response.json(user);
-});
+routes.post('/register', SessionController.register);
+
+routes.get('/', async (request, response) =>
+  response.json({ Api: 'Its Works!!' })
+);
 
 export default routes;

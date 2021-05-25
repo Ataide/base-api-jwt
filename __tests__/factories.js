@@ -9,4 +9,9 @@ factory.define('User', User, {
   password: faker.internet.password(),
 });
 
+// factory.define('UserWithoutCredentials', User, {
+//   name: null,
+
+// })
+
 export default factory;
