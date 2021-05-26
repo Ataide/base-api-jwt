@@ -3,10 +3,34 @@ import factory from '../factories';
 import app from '../../src/app';
 
 describe('SessionAuthentication', () => {
-  // it('should be able to access private router with valid jwt', async () => {
-  //   const response = await request(app).get('/home');
-  //   expect(response.status).toBe(200);
-  // });
+  it('should be not able to access private router with invalid jwt return 401', async () => {
+    const { token } =
+      'eyhhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzUzLCJpYXQiOjE2MjE5ODQwMjcsImV4cCI6MTYyMTk4NDAyOH0.i2Zgm3ryve8MdfTgSTw4d7He7L9YLxpPypXg3cr_FeM';
+
+    await request(app)
+      .get('/home')
+      .set('Authorization', `Bearer ${token}`)
+      .expect(401);
+  });
+
+  it('should be able to access private router with valid jwt', async () => {
+    await factory.create('User', {
+      email: 'ataide@gmail.com',
+      password: '123456',
+    });
+
+    const authResponse = await request(app).post('/auth').send({
+      email: 'ataide@gmail.com',
+      password: '123456',
+    });
+
+    const { token } = authResponse.body;
+
+    await request(app)
+      .get('/home')
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200);
+  });
 
   it('should be able to get a jwt token with valid credentials', async () => {
     await factory.create('User', {

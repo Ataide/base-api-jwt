@@ -16,9 +16,7 @@ class SessionController {
     if (!compare) {
       return response.status(401).json({ message: 'Wrong Password' });
     }
-    const token = jwt.sign({ id: userExists.id }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXP,
-    });
+    const token = jwt.sign({ id: userExists.id }, process.env.JWT_SECRET);
 
     return response.status(200).json({ token });
   }

@@ -16,5 +16,7 @@ module.exports = {
     camelcase: 'off',
     // nao reclamar caso eu nao use o NEXT em um Middleware
     'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
+
+    'jest/expect-expect': 'off',
   },
 };
