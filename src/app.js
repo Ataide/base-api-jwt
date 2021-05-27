@@ -3,9 +3,7 @@ import express, { json } from 'express';
 import routes from './routes';
 import './database';
 
-dotenv.config({
-  path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
-});
+dotenv.config();
 
 class AppController {
   constructor() {
